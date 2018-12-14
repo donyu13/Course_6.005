@@ -1,0 +1,49 @@
+Part 1: Recursive Data Types
+- as Recursive Funcs, we need base and recursive cases
+
+- Immutable Lists ImList<E>
+first(cons(elt,lst)) = elt
+rest(cons(elt,lst)) = lst
+What cons putstogether, first and rest peel back part.
+in Java
+    public interface ImList<E> { // E is a placeholder that the compiler will fill in when it checks our code for type safety.
+        public ImList<E> cons(E e);
+        public E first();
+        public ImList<E> rest();
+        public static <E> ImList<E> empty() { // static method cannot see instance variables/methods/type parameter
+            return new Empty<>();
+        }
+    }
+    
+    public class Empty<E> implements ImList<E> {
+        public Empty() {}
+        public ImList<E> cons(E e) {
+            return new Cons<>(e, this);
+        }
+        public E first() {
+            throw new UnsupportedOperationException();
+        }
+        public ImList<E> rest() {
+            throw new UnsupportedOperationException();
+        }
+    }
+    
+    public class Cons<E> implements ImList<E> {
+        private final E e;
+        private final ImList<E> rest;
+        
+        public Cons(E e, ImList<E> rest) {
+            this.e = e;
+            this.rest = rest;
+        }   
+        public ImList<E> cons(E e) {
+            return new Cons<>(e, this);
+        }
+        public E first() {
+            return e;
+        }
+        public ImList<E> rest() {
+            return res;
+        }
+    }
+    
