@@ -1,49 +1,57 @@
+[Summary]
+Part 1: Recursive Data Types
+In addition to the big idea of recursive datatypes, we saw in this reading:
+- datatype definitions: a powerful way to think about abstract types, particularly recursive ones
+- functions over recursive datatypes: declared in the specification for the type, and implemented with one case per concrete variant
+- immutable lists: a classic, canonical example of an immutable datatype
+
+
+
+=========================================================================================================
 Part 1: Recursive Data Types
 - as Recursive Funcs, we need base and recursive cases
 
 - Immutable Lists ImList<E>
-first(cons(elt,lst)) = elt
-rest(cons(elt,lst)) = lst
-What cons putstogether, first and rest peel back part.
-in Java
-    public interface ImList<E> { // E is a placeholder that the compiler will fill in when it checks our code for type safety.
-        public ImList<E> cons(E e);
-        public E first();
-        public ImList<E> rest();
-        public static <E> ImList<E> empty() { // static method cannot see instance variables/methods/type parameter
-            return new Empty<E>();
-        }
-    }
-    
-    public class Empty<E> implements ImList<E> {
-        public Empty() {}
-        public ImList<E> cons(E e) {
-            return new Cons<>(e, this);
-        }
-        public E first() {
-            throw new UnsupportedOperationException();
-        }
-        public ImList<E> rest() {
-            throw new UnsupportedOperationException();
-        }
-    }
-    
-    public class Cons<E> implements ImList<E> {
-        private final E e;
-        private final ImList<E> rest;
-        
-        public Cons(E e, ImList<E> rest) {
-            this.e = e;
-            this.rest = rest;
-        }   
-        public ImList<E> cons(E e) {
-            return new Cons<>(e, this);
-        }
-        public E first() {
-            return e;
-        }
-        public ImList<E> rest() {
-            return res;
-        }
-    }
+    first(cons(elt,lst)) = elt
+    rest(cons(elt,lst)) = lst
+    What cons putstogether, first and rest peel back part.
+
+
+- Recursive Datatype Definitions
+    ImList<E> = Empty + Cons(first: E, rest: ImList)
+    Tree<E> = Empty + Node(E, left: Tree<E>, right: Tree<E>)
+- Functions over recursive datatypes
+    step 1. declaring the operation in the abstract datatype interface
+    step 2. implementing the operation (recursively) in each concrete variant
+
+    e.g. 
+    + isEmpty: ImList -> boolean
+    isEmpty(Empty) = true
+    isEmpty(Cons(first: E, rest: ImList)) = false
+    + contains: ImList x E -> boolean
+    contains(Empty) = false
+    contains(Cons(first: E, rest: ImList), e: E) = (first == e) || contains(rest, e)
+
+- Tuning the rep
+    make size() from O(n) to O(1) by caching size the first time we compute it
+- Null vs. empty
+    object rather than null reference => sentinel objects, which we can call methods on it, e.g. size()
+    n = lst.size() is better than if (lst != null) n = lst.size();
+- Declared type vs. actual type
+    + compile time before the program runs
+        every var has a declared type
+    + run time when program is executing
+        every var has an actual type (by constructor)
+    e.g. String hello = "Hello";
+        var hello has a declared type String
+        obj created during the actual execution of the program, has an actual type String
+- Boolean formulas example    
+    Formula = Variable(name: String)
+                + Not(formula: Formula)
+                + And(left: Formula, right: Formula)
+                + Or(left: Formula, right: Formula)
+    e.g.
+        (P ∨ Q) ∧ (¬P ∨ R) IS
+        And( Or(Variable("P"), Variable("Q")),
+             Or(Not(Variable("P")), Variable("R") )
     
