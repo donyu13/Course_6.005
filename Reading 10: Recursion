@@ -1,0 +1,71 @@
+- recursive problems and recursive data
+- comparing alternative decompositions of a recursive problem
+- using helper methods to strengthen a recursive step
+- recursion vs. iteration
+
+3 key properties of good software as follows:
+- Safe from bugs. Recursive code is simpler and often uses immutable variables and immutable objects.
+- Easy to understand. Recursive implementations for naturally recursive problems and recursive data are often shorter and easier to understand than iterative solutions.
+- Ready for change. Recursive code is also naturally reentrant, which makes it safer from bugs and ready to use in more situations.
+=========
+
+1. Break down the problem properly.
+   e.g. In subsequences, solution as follows:
+        Take the first letter of the word. 
+        We can form one set of subsequences that include that letter, and another set of subsequences that exclude that letter,
+        those two sets completely cover the set of possible subsequences.
+2. Implement recursion.
+    - base case
+        cannot be broken down any further
+    - recursive steps
+        + Conceptionally,
+        decompose a larger instance of the problem 
+            into more instances that can be solved by recursive calls,
+        recombines the results of those subproblems to produce the solution to the original problem.
+        + Practically,
+        compute the result with the help of one or more recursive calls to this same function
+        but with the inputs closer to base case
+    - other concepts from CS have (the equivalent of) a base case and a recursive step?
+        + proof by induction
+        + binary trees
+3. Helper Method
+    compared to direct recursive impl as above
+    fills a similar role that a local var would in an iterative impl.
+    It holds temporary state during the evolution of the computation
+    
+    Alternative: W/O. helper method, store as a static variable instead of a parameter
+                 but static variables to mutable data are very unsafe for recursion, 
+                 the safest course is to pass in all variables and stick to immutable objects or avoid mutation.
+4. Choosing the Right Recursive Subproblem
+   e.g. ways to decompose n
+      a. find the nuber of digits in the number then to extract the leftmost digit
+      b. to take its remainder modulo base (rightmost digit)
+        and also divide by base (subproblem, remaining higher-order digits)
+        
+   Think about several ways to break down the problem, and try to write the recursive steps.  
+   It remains to figure out what the base case is, and include an if statement that distinguishes the base case from recursive step.
+5. Recursive Problems vs. Recursive Data
+   how do we detect a recursive problem?
+      a. problem structure is recursive (e.g. Fibonacci)
+      b. data structure is recursive  (e.g. filesystem)
+   
+6. Reentrant Code (TO EXPLORE)
+   code can be safely re-entered, keeps its state entirely in parameters and local variables
+  
+7. When recursion?
+   Recursive Problems vs. Recursive Data
+   Take more advantage of immutability:
+         vars are final, data is immutable,
+         the behavior of a method is a relationship between its parameters and its return value, no side effects on any other part of the program
+         that's so-called Functional Programming
+      while in iteration, 
+         vars are non-final, data is mutable
+         rather than thinking about pure input/output, we think about snapshots of the program state at various points
+   Why not?
+      more space
+8. Others' mistakes
+   - Missing base case.
+   - Recursive case doesn't reduce to a smaller subproblem.
+   Look for these when you're debugging.
+   
+   
