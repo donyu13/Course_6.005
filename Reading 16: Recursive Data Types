@@ -11,7 +11,7 @@ in Java
         public E first();
         public ImList<E> rest();
         public static <E> ImList<E> empty() { // static method cannot see instance variables/methods/type parameter
-            return new Empty<>();
+            return new Empty<E>();
         }
     }
     
