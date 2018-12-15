@@ -4,7 +4,11 @@ In addition to the big idea of recursive datatypes, we saw in this reading:
 - datatype definitions: a powerful way to think about abstract types, particularly recursive ones
 - functions over recursive datatypes: declared in the specification for the type, and implemented with one case per concrete variant
 - immutable lists: a classic, canonical example of an immutable datatype
-
+Part 1 & Part 2: 
+- Safe from bugs. Recursive datatypes allow us to tackle problems with a recursive or unbounded structure. 
+                  Implementing appropriate data structures that encapsulate important operations and maintain their own invariants is crucial for correctness.
+- Easy to understand. Functions over recursive datatypes, specified in the abstract type and implemented in each concrete variant, organize the different behavior of the type.
+- Ready for change. A recursive ADT, like any ADT, separates abstract values from concrete representations, making it possible to change low-level code and high-level structure of the implementation without changing clients.
 
 
 =========================================================================================================
@@ -15,15 +19,14 @@ Part 1: Recursive Data Types
     first(cons(elt,lst)) = elt
     rest(cons(elt,lst)) = lst
     What cons putstogether, first and rest peel back part.
-
-
+    
 - Recursive Datatype Definitions
     ImList<E> = Empty + Cons(first: E, rest: ImList)
     Tree<E> = Empty + Node(E, left: Tree<E>, right: Tree<E>)
+    
 - Functions over recursive datatypes
     step 1. declaring the operation in the abstract datatype interface
     step 2. implementing the operation (recursively) in each concrete variant
-
     e.g. 
     + isEmpty: ImList -> boolean
     isEmpty(Empty) = true
@@ -34,17 +37,17 @@ Part 1: Recursive Data Types
 
 - Tuning the rep
     make size() from O(n) to O(1) by caching size the first time we compute it
+    
 - Null vs. empty
     object rather than null reference => sentinel objects, which we can call methods on it, e.g. size()
     n = lst.size() is better than if (lst != null) n = lst.size();
+    
 - Declared type vs. actual type
     + compile time before the program runs
         every var has a declared type
     + run time when program is executing
         every var has an actual type (by constructor)
-    e.g. String hello = "Hello";
-        var hello has a declared type String
-        obj created during the actual execution of the program, has an actual type String
+        
 - Boolean formulas example    
     Formula = Variable(name: String)
                 + Not(formula: Formula)
@@ -54,4 +57,24 @@ Part 1: Recursive Data Types
         (P ∨ Q) ∧ (¬P ∨ R) IS
         And( Or(Variable("P"), Variable("Q")),
              Or(Not(Variable("P")), Variable("R") )
-    
+  
+=========================================================================================================
+Part 2. Writing a Program with ADT
+Q: If we need instanceof in OOP
+A: Break the op down into pieces that are appropriate for each class, and write instance methods instead
+Q: If we need a value in the datatype that represents nothing
+A: Avoid using null. e.g. for a matrix product, identity matrix - an empty product expression is just the identity anyway.
+Q: If we don't want to expose concrete rep classes, so that clients won't depend on them and we'll be able to change them later (being ready to change)
+A: Factory methods - static methods that play the role of constructors.
+
+/**
+ * static .. make() - Factory Methods
+ * default .. times() - default methods
+ * isIdentity impl. - avoid instanceOf
+ * I = new Identity() - avoid null
+ */
+
+
+
+
+
