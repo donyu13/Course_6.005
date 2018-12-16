@@ -1,0 +1,35 @@
+- Summary
+Msg passing and shared memory models of concurrency
+Concurrent processes and threads, and time slicing
+The danger of race conditions
+----------------------------------------------------------------
+- Concurrency
+multi computations happen at the same time 
+don't take it narrow sense, it includes
+  multi pc in a network
+  multi app in a pc
+  multi processors in a pc
+aim to get a computation to run faster
+
+- Two Models for concurrent modules communicate
+    + Shared Memory
+        reading and writing shared objects in physical memory, common filesystem, Java
+    + Message Passing
+        sendng messages to each other through a communication channel as network communications, manual pipe
+- processes, threads, time-slicing
+    + concurrent modules
+       - Process
+            isolated inst of a running program
+            represents a virtual computer
+            ready for message passing
+       - Thread
+            a place in a running program (plus the stack of method calls)
+            represents a virtual processor
+            ready for shared memory (threads share all the memory in process)
+                so, to set up message-passing explicitly, we use queue
+    + Time slicing
+            when there are more threads than processors, concurrency is simulated by time slicing
+            i.e. processor switches between threads
+    + When a program starts, it automatically gets one process to run in, and it gets one thread for its execution.
+    
+  
