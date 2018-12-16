@@ -1,7 +1,10 @@
 - Summary
-Msg passing and shared memory models of concurrency
-Concurrent processes and threads, and time slicing
-The danger of race conditions
+ Concurrency: multiple computations running simultaneously
+ Shared-memory & message-passing paradigms
+ Processes & threads
+    Process is like a virtual computer; thread is like a virtual processor
+ Race conditions
+    When correctness of result (postconditions and invariants) depends on the relative timing of events
 ----------------------------------------------------------------
 - Concurrency
 multi computations happen at the same time 
@@ -31,5 +34,22 @@ aim to get a computation to run faster
             when there are more threads than processors, concurrency is simulated by time slicing
             i.e. processor switches between threads
     + When a program starts, it automatically gets one process to run in, and it gets one thread for its execution.
+
+- Interleaving
+    low-level instructions interleave with each other
+    which causes shared memory problem
+- Race Condidtion
+    correctness of the program depends on the relative timing of events between A and B
+    |_ satisfaction of postconditions and invariants
+    A is in a race with B
+- Tweak your code won't work
+    you can’t tell by looking at an expression whether it will be safe from race conditions
+    it isn’t atomic just because it’s one line of Java
+    because compilers are lazy at storeback during computations
+- Concurrency is Hard to Test and Debug
+    They are heisenbug (compared with bohrbug in sequential programming)
+    println or debugger cannot be used 
+        for they are much slower than other operations, often 100-1000x slower, that they dramatically change the timing of operations, and the interleaving
+    
     
   
