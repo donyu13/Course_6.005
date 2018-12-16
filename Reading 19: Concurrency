@@ -51,5 +51,27 @@ aim to get a computation to run faster
     println or debugger cannot be used 
         for they are much slower than other operations, often 100-1000x slower, that they dramatically change the timing of operations, and the interleaving
     
-    
-  
+-------------------READING-------------------------------------    
+- Java Processes and Threads
+    + Process
+        communication between processes by IPC such as pipes and sockets (supported by OS)
+        most impl. of the JVM run as a single process
+    + Thread
+        Mulithreaded exec is an essential feature of Java
+        start with just the main thread, it can create additional threads 
+        + Defining and Starting
+            - provide a Runnable object (passed to the Thread constructor)
+                run() - code executed in the thread. 
+            - Subclass Thread 
+                class Thread impl. Runnable where run() does nothing
+            They both need Thread.start in order to start the new Thread
+- Interference Bugs
+happens when two operations, running in different threads, but acting on the same data, interleave. 
+This means that the two operations consist of multiple steps, and the sequences of steps overlap.
+
+
+
+
+
+
+
