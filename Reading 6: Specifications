@@ -1,0 +1,36 @@
+as a contract on both, which implementer meets and the client uses the method can rely on.
+client: caller of the method
+- Part1: Specifications
+    + why
+        diff programmers on a team have diff specs in mind
+        easier for client to read than src code
+        implementor can change impl w/o telling clients
+        as a firewall between client an implementor, decoupling
+    + behavioral equivalence 
+        depends on spec
+    + Spec structure
+        precondition, indicated by requires, obligation of client
+        postcondition, indicated by effects, obligation of impler
+    + Spec in Java
+        static type declarations
+        non-type in comment, pre @param, post @return
+        + comments in Java
+            // Single-line comment
+            /* Multi-line 
+               comment. */
+        + Javadoc comments
+            /**
+             * Concise summary here, use <code>, omit parenthesis, method desc begins with a verb,
+             * @autor Xinrong
+             * @version 0.1
+             * @param
+             * @return
+             * @throws 
+             * @since 0.0
+             */
+        + Running The Javadoc Tool
+            produce an API similar to the Java API
+            produce a set of HTML pages to document ...
+    + Null Ref
+        Avoid null
+        precondition and postcondition non-null
