@@ -1,0 +1,26 @@
+- Don't Repeat Yourself
+- Comments Where Needed
+    Specifications
+    Assumptions
+    Sources
+- Fail Fast
+The earlier a problem is observed (the closer to its cause), 
+the easier it is to find and fix.
+return -1 won’t fail fast, and that strangeness may even be masked by subsequent code
+- Avoid Magic Numbers
+There are really only two constants that computer scientists recognize as valid in and of themselves: 0, 1, and maybe 2.
+- One Purpose For Each Variable
+Introduce them freely, give them good names, and just stop using them when you stop needing them.
+- Use Good Names
+Good method and variable names are long and self-descriptive.
+In general, variable names like tmp, temp, and data are awful, symptoms of extreme programmer laziness.
+Choose short words, and be concise, but avoid abbreviations. For example, message is clearer than msg, and word is so much better than wd.
+- Use Whitespace to Help the Reader
+Never use tab characters for indentation, only space characters. 
+The reason for this rule is that different tools treat tab characters differently 
+- Don’t Use Global Variables
+In general, change global variables into parameters and return values, or put them inside objects that you’re calling methods on. 
+Adding final to the words variable means that the variable can’t be reassigned – but the List object that it points to can still be mutated. 
+- Methods Should Return Results, not Print Them
+In general, only the highest-level parts of a program should interact with the human user or the console.
+Lower-level parts should take their input as parameters and return their output as results.
