@@ -1,3 +1,11 @@
+A specification acts as a crucial firewall between the implementor of a procedure and its client. 
+It makes separate development possible: 
+    the client is free to write code that uses the procedure without seeing its source code, 
+    and the implementor is free to write the code that implements the procedure without knowing how it will be used.
+
+
+
+
 as a contract on both, which implementer meets and the client uses the method can rely on.
 client: caller of the method
 - Part1: Specifications
@@ -53,8 +61,9 @@ client: caller of the method
         + checked
             by compiler
             declare in signature OR handle it
+            to special results (client anticipated)
         + unchecked
-            to signal bugs
+            to signal bugs (client unexpected failures)
             
     + Throwable hierarchy
         that's how Java detects whether exception is checked or unchecked
@@ -62,5 +71,12 @@ client: caller of the method
         subclass Error, RuntimeException are unchecked
         rest subclass Exception are checked
         we can only customize exception subclass Exception or RuntimeException
+    + Exception design considerations
+        exceptions cost, that's why many API use null ref as a special value
+        - unchecked exception for unexpectd failure OR we can exptect clients always avoid it
+        - others, checked
+        
+   
+        
         
         
