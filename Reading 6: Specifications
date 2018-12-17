@@ -34,3 +34,33 @@ client: caller of the method
     + Null Ref
         Avoid null
         precondition and postcondition non-null
+        null is implicitly disallowed unless stated 
+    + Testing according to spec rather than code
+        black box know spec only
+        glass box know spec and impl. (spec is old big)
+        + Unit testing
+            test each module (one single spec)
+        + Integration testing
+            test a comb of modules
+
+- Part 2: Exceptions
+    + for signaling bugs
+    + for special results (get help from compiler)
+        + exception in java
+            - what
+                An exception is an event that occurs during the execution of a program that disrupts the normal flow of instructions.
+    + Checked and unchecked exceptions
+        + checked
+            by compiler
+            declare in signature OR handle it
+        + unchecked
+            to signal bugs
+            
+    + Throwable hierarchy
+        that's how Java detects whether exception is checked or unchecked
+        class Throwable can be thrown or caught
+        subclass Error, RuntimeException are unchecked
+        rest subclass Exception are checked
+        we can only customize exception subclass Exception or RuntimeException
+        
+        
