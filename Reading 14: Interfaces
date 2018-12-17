@@ -1,2 +1,27 @@
 Java use interface to express an Abstract Data Type.
 
+- why interfaces
+    + doc for both compiler and humans
+        compiler can catch ADT impl bugs easily
+    + allow performance trade-offs
+        choose the best impl for one 
+    + support optional method
+    + support method with underdetermined specifications
+    + multiple views of one class
+    
+- ADT concept   |   Ways in Java    |   Examples
+    ADT             Single clss         String
+                    Interface + class   List and ArrayList
+    Creator op      Constructor         ArrayList()
+                    Static(factory) m.  Collections.singletonList, Arrays.toList()
+                    Constant            BigInteger.ZERO
+    Observer op     Instance m.         List.get()
+                    Static m.           Collectios.max()
+    Producer op     Instance m.         String.trim()
+                    Static m.           Collections.unmodifiableList()
+    Mutator op      Instance m.         List.add()
+                    Static m.           Collections.copy()
+    Representation  private fields
+    
+
+
