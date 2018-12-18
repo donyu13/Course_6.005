@@ -1,0 +1,16 @@
+- git log related
+
+git log xx.txt
+git log --name-status : A means a file was added, M means modified. D is deleted.
+git log -p xx.txt 
+
+- git is cloud-based
+
+- 4 steps
+git clone / git pull
+git add
+git commit
+git push
+
+do with merge conflict whenever needed
+merge conflict happens when updated the same line of code
