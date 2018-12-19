@@ -6,31 +6,47 @@ Blocking caused by acquiring multiple locks creates the possibility of deadlock.
 - Thread Safety: the correctness of a concurrent program should not depend on accidents of timing
 - way 4, synchronization (safe for shared-memory concurrency)
     + technique:
-        - locks
+        - locks, guard access to shared data variable
             at most one thread to own it at a time
             operations:
                 acquire
                 release
 - deadlock
-    locks require threads to wait (acquire blocks while held by others)
-    => threads are waiting for each other
-    when concurrent modules are stuck waiting for each other to do sth (can by cycle of dependencies)
+    - what:
+        Deadlock describes a situation where two or more threads are blocked forever, waiting for each other. 
+        when concurrent modules are stuck waiting for each other to do sth (can be cycle of dependencies)
+    - why:
+        locks require threads to wait (acquire blocks while held by others)
+   
+    
     
 - dev a threadsafe ADT
-- locking
-    each obj in Java has a lock <- synchronized statement to acquire the lock
+- locking in Java
+    each obj WITH intrinsic/monitor LOCK 
+    SO impossible for two invocations of synchronized methods on the same objs to interleave
+       establish a happen-before relationship with any subsequent sync methods
+    SO a thread to own it have to ACQUIRE the lock and RELEASE afterwards
+    synchronized regions mutual exclusion like in sequential programming world
+  + Sync Method
+    BUT what about STATIC sync method, which belongs to class rather than obj
+        acuires the lock for the CLASS obj associated with the class RATHER THAN lock for INSTANCE of the class
+  + Sync Statements
+    MUST specify the object providing lock
     e.g.
-        synchronized(lock) { // block here until lock is free.
-            // has lock.
+        synchronized(lock) { // Block here until lock is free.
+            // Has lock.
             balance++;
-            // exiting the block releases the lock.
+            // Exiting the block releases the lock.
         }
-    synchronized regions mutual exclusion: only 1 thread at a time can be in a synchronized region guarded by a given object's lock
-        like in sequential programming world
-    locks guard access to sared data variable
+  + Reentrant Sync
+    a thread can acquire a lock it already owns ENABLES Reentrant Sync
+    use it when you actually need something it provides that synchronized doesn't, 
+        like timed lock waits, interruptible lock waits, non-block-structured locks...
+        
 - Monitor pattern
-    convenient lock is the object instance itself, i.e. this by default
+    most convenient lock is the object instance itself, i.e. this
     a monitor is a class whose methods are mutually exclusive, only one thread can be inside an instance of the class at a time
+    
 - Thread safety argument with sync
     + locking discipline
         to ensure sync code is threadsafe, we satisfy
@@ -63,7 +79,7 @@ Blocking caused by acquiring multiple locks creates the possibility of deadlock.
         immutable datatypes
     - OS use
         fine locking AND lock ordering
- solution for mutable shared data -> db, avoid race conditions using transactions, no need to acquire locks
- though a transaction may fail and be rolled back if it turns out that a race occurred
+ another solution for mutable shared data -> db, avoid race conditions using transactions, no need to acquire locks
+         a transaction may fail and be rolled back if it turns out that a race occurred
         
     
