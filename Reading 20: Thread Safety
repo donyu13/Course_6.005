@@ -45,3 +45,8 @@ w/o additional coordination like you can't call get() while set() in progress
             In this case, clearing and inserting, that means either clear-followed-by-insert, or insert-followed-by-clear. 
             This property is called serializability: for any set of operations executed concurrently, the result (the values and state observable by clients) must be a result given by some sequential ordering of those operations.
         
+========
+Anonymous Runnable
+- anonymous classes are good for short one-off implementations of a method.
+ An anonymous class declares an unnamed class that implements an interface and immediately creates the one and only instance of that class.
+- Using an anonymous Runnable to start a thread
