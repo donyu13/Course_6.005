@@ -1,0 +1,69 @@
+Make thread safety arguments about your datatypes, and document them in the code.
+Acquiring a lock allows a thread to have exclusive access to the data guarded by that lock, forcing other threads to block — as long as those threads are also trying to acquire that same lock.
+The monitor pattern guards the rep of a datatype with a single lock that is acquired by every method.
+Blocking caused by acquiring multiple locks creates the possibility of deadlock.
+=========
+- Thread Safety: the correctness of a concurrent program should not depend on accidents of timing
+- way 4, synchronization (safe for shared-memory concurrency)
+    + technique:
+        - locks
+            at most one thread to own it at a time
+            operations:
+                acquire
+                release
+- deadlock
+    locks require threads to wait (acquire blocks while held by others)
+    => threads are waiting for each other
+    when concurrent modules are stuck waiting for each other to do sth (can by cycle of dependencies)
+    
+- dev a threadsafe ADT
+- locking
+    each obj in Java has a lock <- synchronized statement to acquire the lock
+    e.g.
+        synchronized(lock) { // block here until lock is free.
+            // has lock.
+            balance++;
+            // exiting the block releases the lock.
+        }
+    synchronized regions mutual exclusion: only 1 thread at a time can be in a synchronized region guarded by a given object's lock
+        like in sequential programming world
+    locks guard access to sared data variable
+- Monitor pattern
+    convenient lock is the object instance itself, i.e. this by default
+    a monitor is a class whose methods are mutually exclusive, only one thread can be inside an instance of the class at a time
+- Thread safety argument with sync
+    + locking discipline
+        to ensure sync code is threadsafe, we satisfy
+            - shared mutable var guarded by lock
+            - if an invariant involves n shared mutable ars, garded by same lock
+        Monitor pattern satisfies above
+- Atomic operations
+    - give clients access to a lock
+    - don't sync everywhere
+- Designing a datatype for concurrency
+- Deadlock occurs
+    when threads acquire multiple locks at the same time, and two threads end up blocked while holding locks that they are each waiting for the other to release
+    solution:
+        - lock ordering
+            put an ordering on the locks
+            because in order to encounter deadlock, 
+                threads must try to acquire locks in different orders, creating a cycle in the graph of who-is-waiting-for-who
+        - coarse-grained locking
+            a single lock to guard many object instances, or even a whole subsystem of a program
+- Goals of concurrent program design
+    ask yourself
+        safety - bad thing never happen
+        liveness - goot thing eventually happens
+- Concurrency in practice
+    - Library data structures use
+        no sync OR monitor pattern
+    - Mutable data structure with many parts use (e.g. GUI, Java Swing)
+        coarse locking OR thread confinement
+    - Search use
+        immutable datatypes
+    - OS use
+        fine locking AND lock ordering
+ solution for mutable shared data -> db, avoid race conditions using transactions, no need to acquire locks
+ though a transaction may fail and be rolled back if it turns out that a race occurred
+        
+    
