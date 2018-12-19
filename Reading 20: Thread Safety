@@ -5,4 +5,27 @@ w/o additional coordination like you can't call get() while set() in progress
 - how Thread Safe
     + Confinement
         keep mutable data(pointed) confined to a single thread w/o sharing e.g. local variables
+    + Immutability
+        make shared data immutable e.g. final variables (but it points to are not immutable
+        + what
+            no mutator methods
+            all fields are private and final
+            no rep exposure
+            no mutatbion even if mutatble objs in the rep
+    + (store shared mutable data in existing) Threasafe DT
+        + Threadsafe Collections
+            - Collections.synchronizedMap(new HashMap<>())
+            - Iterators are still not threadsafe
+              have to acquire the collection's lock
+            - still races
+              have to argue that the races don’t threaten this invariant.
+    + synchronization
+        have to argue
+- how Safety Argument
+    - catalog all threads
+    - data they use
+    - which tech you use
+        last two have to argue invariants I depend on are not threatened by interleaving
+    e.g.
+        confinement
         
