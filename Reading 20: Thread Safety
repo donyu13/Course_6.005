@@ -1,0 +1,8 @@
+- what Thread Safe
+behaves correctly: satisfy spec and preserve rep invariant
+regardless of how threads executed
+w/o additional coordination like you can't call get() while set() in progress
+- how Thread Safe
+    + Confinement
+        keep mutable data(pointed) confined to a single thread w/o sharing e.g. local variables
+        
