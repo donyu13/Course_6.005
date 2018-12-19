@@ -27,5 +27,21 @@ w/o additional coordination like you can't call get() while set() in progress
     - which tech you use
         last two have to argue invariants I depend on are not threatened by interleaving
     e.g.
-        confinement
+    // Rep invariant:
+    //    0 <= start <= a.length
+    //    0 <= len <= a.length-start
+    // Abstraction function:
+    //    represents the string of characters a[start],...,a[start+length-1]
+    // Thread safety argument:
+    //    This class is threadsafe because it's immutable:
+    //    - a, start, and len are final
+    //    - a points to a mutable char array, which may be shared with other
+    //      String objects, but they never mutate it
+    //    - the array is never exposed to a client
+    Serialization:
+        What we demand from a threadsafe data type is that 
+            when clients call its atomic operations concurrently, 
+            the results are consistent with some sequential ordering of the calls. 
+            In this case, clearing and inserting, that means either clear-followed-by-insert, or insert-followed-by-clear. 
+            This property is called serializability: for any set of operations executed concurrently, the result (the values and state observable by clients) must be a result given by some sequential ordering of those operations.
         
