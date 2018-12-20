@@ -1,0 +1,37 @@
++ invariants 
+  - to reason about code
+  - is always true during runtime
+  
++ rep exposure
+  - is code outside class modify rep directly (may also cause rep independence)
+  - solve
+    - if type mutable, no direct ref exposedd to clients
+    - write in spec
+    - use immutable (wrappers in Java)
+
++ rep invariant and abstraction func
+  - relationship between R and A is key to ADT
+  - e.g. ADT CharSet
+  class CharSet {
+      String s;
+  }
+  
+  Rep         Abstract
+  in impl.    in spec.  
+  "ab" ------  "ab"
+  "ba" ______/
+  "abb"
+ //containDup
+  
+  to understand relationship, we make assumptions as AF and RI
+  in graph,
+  line is AF: R -> A
+  containDup is RI: R -> boolean predicate (practice: we build private void checkRep() after in R to ensure RI)
+
++ doc from rep exposure
+  AF, RI, Rep Exposure Safety Argument right after fields
+
++ adt invariants replace preconditions
+  why custom ADT
+    - capture desired property in precondition (or else have to regulate in precondition)
+    - easy to change without client change (for separate rep from abstraction)
