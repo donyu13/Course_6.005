@@ -1,0 +1,26 @@
++ Mutability
+    - immutable: once created, represent the same value
+    - mutable: with methods to change value
+
++ Mutable obj
+    + e.g. iterator
+        - used under the covers in Java for loop through a collection
+        - private final list; private int index;
+        - mutations destroy iterator
+
++ Aliasing
+    - is with multiple references
+    - makes mutability dangerous
+
++ Danger of mutability
+    - pass mutable values
+    - return mutable values
+
++ spec for mutating methods
+
++ Mutation and contracts
+    - complicate the contract
+    - reduce changeability
+
++ Immutability to improve correctness, clarity and changeability
+    SO using immutable objects and immutable references as much as possible
