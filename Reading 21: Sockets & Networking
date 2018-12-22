@@ -1,0 +1,95 @@
++ client / server design pattern
+    - they are processes
+    - request, reply
+    - n : n
++ network sockets
+    + IP
+        - a network interface is identified by an IP
+        - IPv4 32-bit, written in 4 8-bit
+        - 127.0.0.1 localhost, when you want to talk to a server running on your own machine, talk to it 
+        - has a new IP each time connect to network
+    + hostnames
+        - names that can be translated into IP by Domain Name System
+        - n : n
+            1 hostname mapped to diff IP at diff times
+            n hostnames mapped to same IP
+    + port numbers
+        - direct traffic to diff processes on the same machine, each server listen on a specific port
+        - n ports, 16-bit, start at 1 ~ 65535
+        + reserved
+             22 SSH server
+             25 email server
+             80 web server   
+        - if not a standard port, specified as part of address
+        - client also use its non-well-known port
+    + network sockets
+        + one end of connection between client and server
+          in Java, Socket, ServerSocket
+                                                                      connected socket: send and receive msgs
+                connected socket: send and receive msgs               listening socket
+          client |--------------------------------------------------------------| server 
+                data in stream of bytes                             data in stream of bytes
++ I/O: communication into and out of a process/network/file/CLI/GUI
+    + buffers
+        sender send data in chunks, network chops that chunk into packets, each packet is routed over the network
+                                                                                   
+                  sender send data in chunks       network chops into packets       receiver reassemble packets together and receive   
+        sender ----||------------------------------------=-=-=--------------------||-------------------receiver
+                                                                                                       []
+                                                                                                       data go into buffer, arr in memory
+    + stream
+        data to/from a socket is a stream of bytes
+        + in Java, 
+            - InputStream read data from .. into my program:
+                FileInputStream: reading from file
+                System.in: user input
+                Input from a network socket
+            - OutputStream write data to   
+                FileOutputStream: saving to files
+                System.out: PrintStream, print readable
+                Output to a network socket
+        with sockets, output of one process i input of another
++ blocking
+    - blocking method: if a method is, a call to this method can block, waiting until an event occurs before returns to caller 
+    - socket input/output streams exhibit blocking behavior
+        if incoming socket's buffer is empty
+            read() until data are available
+        if dest socket's buffer is full
+            write() until space is available
+    - block happens in concurrent programming, may cause deadlock
++ using network sockets
++ wire protocols
+    - protocol is a set of msgs that can be exchanged by two communicating parties
+    - wire protocol is a set of msgs represented as byte sequence
+    + popular ASCII-based wire protocol
+        - Hypertext Transfer Protocol is language of World Wide Web, port 80 for speaking HTTP to web servers
+        - Simple Mail Transfer Protocol sends email, port 25
+    + design wire protocol
+        + like design operations of an ADT
+            - keep # of diff msgs small
+            - msg conherent behavior
+            - msgs adequate for clients to make req and for servers to deliver the res
+        + platform-independence
+        - serialization: process of transforming data structure in memory into format that can 
+                         be easily stored or transmitted
+                         e.g. JSON 
+    - specify a wire protocol
+        - use a grammer to define what msgs are allowed by protocol LIKE method signature
+          spec: precondition postcondition
++ testing client/server code
+    - separate network code from ds and algo
+    - separate socket code from stream code
+    - test for more complex modules 
+        use a mock obj 
+            to simulate the behavior of a real client or server
+            by producing entire canned seq of interaction
+               asserting the correctness of each msg received from the other component
++ summary
+    client/server design pattern, concurrency is a must
+    
+                
+                
+        
+        
+        
+        
