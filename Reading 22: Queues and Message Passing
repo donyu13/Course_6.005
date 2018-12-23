@@ -1,0 +1,34 @@
++ models for concurrent programming
+    - shared memory 
+        r/w mutable obj in memory
+        e.g. create n threads inside 1 Java process
+    - msg passing: 
+        sending immutable msg
+        e.g. client/server processes communicate through network socket
+        explicitly
+
++ msg passing with threads (compared wih shared memory design with locks)
+    - BlockingQueue extends queue interface
+        put(e) blocks until it can add e
+        take() blocks until it can rmv and return (non-empty)
+        impl: ArrayBlockingQueue, LinkedBlockingQueue
+    - producer-consumer design pattern 
+
++ msg passing impl
+    
++ stopping
+    - modify request ADT
+        e.g. SquareRequest = IntegerRequest + StopRequest
+    - call thread's interrupt()
+    
++ thread safety args with msg passing
+    - existing threadsafe data types for the sync queue
+    - immutability of data for the sync queue
+    - confinement of data to individual threads
+        local var are not visible to other threads, communicate using data in the queue
+    - confinement of mutable data accessible to one thread at a time
+    
++ ref
+    BlockingQueue implementations are thread-safe. All queuing methods achieve their effects atomically using internal locks or other forms of concurrency control. 
+    A BlockingQueue does not support "shutdown" operation to indicate that no more items will be added. For example, a common tactic is for producers to insert special end-of-stream or poison objects, that are interpreted accordingly when taken by consumers.
+    
