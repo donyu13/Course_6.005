@@ -1,0 +1,60 @@
++ what we are talking about
+use a grammar in combination with a parser generator, to parse a character sequence into a parse tree (uing Antlr)
+convert a parse tree into ADT
+
++ what: parser(auto-generated src) use grammar to parse char seq, parse tree show how, recursive dt Abstract Syntax Tree represent lang
+
+    input: grammar
+    output: parser(auto-generated src) that parse char streams using that grammar
+    
+    parse tree: show how grammar productions are extpanded into a sentence that matches char seq
+    parse tree root: any nonterminal of grammar, starting symbol of grammar
+    parse tree node: one production of grammar
+        leaves: terminals
+        internal nodes: nonterminals
+    
+    translate parse tree into a Recursive Data Type, that always used to represent lang expression, called Abstract Syntax Tree
+    
++ Antlr Grammar:
+    terminal: quoted or uppercase, e.g. '<i>' or EOF // = static in Java
+    nonterminal: lowercase, e.g. root // user-define
+    |: alternation operator
+    *, +: repetition operator
+    ?: optional
+    (): for grouping
+    ~[<>]: any ch except < and >
+    
+    
+    
++ Generating the Parser:
+    - Antlr parser generator tool converts a grammar .g4 to Java src that impl a parser
+    - generated code:
+        Hello.g4		    HelloLexer.java
+        Hello.interp		HelloLexer.tokens
+        Hello.tokens        HelloLexer.interp
+        
+        HelloListener.java
+        HelloBaseListener.java	
+        
+        HelloParser.java
+        
+    - generated code is divided into modules:
+        - lexer: output terminal
+        - parser: output parse tree
+        - tree walker: for tree traversal
+        - .tokens: list terminals, used when grammars inside other grammers
+    - note
+        - only edit .g4
+        - regenerate after edit .g4
+    
++ Calling the parser
++ Traversing the parse tree
++ Constructing ADT
+    - translate parse tree(Concrete Syntax Tree)
+      into a value of a recursive ADT(Abstract Syntax Tree)
+    - def: Sum = Plus(left:Sum, right:Sum) + Number(n:int)
+    - how: 
+        each parse tree node will correspond to a Sum variant: 
+            sum nodes will create Plus objects
+            addend nodes will create Number objects
+
