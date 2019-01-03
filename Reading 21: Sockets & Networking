@@ -14,14 +14,14 @@
             1 hostname mapped to diff IP at diff times
             n hostnames mapped to same IP
     + port numbers
-        - direct traffic to diff processes on the same machine, each server listen on a specific port
-        - n ports, 16-bit, start at 1 ~ 65535
+        - direct traffic to diff processes on the same machine, each process listen on a specific port
+        - n ports, n is 16-bit, so 1 ~ 65535
         + reserved
              22 SSH server
              25 email server
              80 web server   
         - if not a standard port, specified as part of address
-        - client also use its non-well-known port
+        - client use non-well-known port
     + network sockets
         + one end of connection between client and server
           in Java, Socket, ServerSocket
@@ -69,7 +69,7 @@
             - keep # of diff msgs small
             - msg conherent behavior
             - msgs adequate for clients to make req and for servers to deliver the res
-        + platform-independence
+        - platform-independence
         - serialization: process of transforming data structure in memory into format that can 
                          be easily stored or transmitted
                          e.g. JSON 
